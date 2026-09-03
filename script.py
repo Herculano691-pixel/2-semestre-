@@ -83,10 +83,44 @@ w = A | B
 print(w)
 """
 
+
+"""
 def par(x):
     return x % 2 == 0
 
 y = []
 for i in [4, 7, 3, 9, 6]:
     y.append(par(i))
+print(y)
+"""
+
+
+"""
+def pesquisa_sequencial(lista, item):
+  for i, j in enumerate(lista):
+    if j == item:
+      return i
+
+y = pesquisa_sequencial([7, 9, 12, 15, 16, 18, 22], 15)
+print(y)
+"""
+
+
+
+def pesquisa_binaria(lista, item):
+  baixo = 0
+  alto = len(lista) - 1
+
+  while baixo <= alto:
+    meio = (baixo + alto) // 2
+    chute = lista[meio]
+    if chute == item:
+      return meio
+    elif chute > item:
+      alto = meio - 1
+    else:
+      baixo = meio + 1
+  return None
+
+y = pesquisa_binaria([7, 9, 12, 15, 16, 18, 22], 22)
 print(y)
