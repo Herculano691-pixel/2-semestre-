@@ -95,7 +95,7 @@ print(y)
 """
 
 
-"""
+'''
 def pesquisa_sequencial(lista, item):
   for i, j in enumerate(lista):
     if j == item:
@@ -103,10 +103,10 @@ def pesquisa_sequencial(lista, item):
 
 y = pesquisa_sequencial([7, 9, 12, 15, 16, 18, 22], 15)
 print(y)
-"""
+'''
 
 
-
+'''
 def pesquisa_binaria(lista, item):
   baixo = 0
   alto = len(lista) - 1
@@ -124,3 +124,5 @@ def pesquisa_binaria(lista, item):
 
 y = pesquisa_binaria([7, 9, 12, 15, 16, 18, 22], 22)
 print(y)
+'''
+
