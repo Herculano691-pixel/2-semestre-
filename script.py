@@ -126,3 +126,21 @@ y = pesquisa_binaria([7, 9, 12, 15, 16, 18, 22], 22)
 print(y)
 '''
 
+'''
+def factorial(n):
+  if n <= 1:
+    return 1
+  else:
+    return n + factorial(n - 1)
+
+factorial(5)
+print(factorial(5))
+'''
+
+while True:
+    x = 5
+    soma = 0
+    for i in range(x + 1):
+        soma += i
+    print(soma)
+    break
