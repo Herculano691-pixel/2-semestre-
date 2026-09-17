@@ -146,7 +146,7 @@ while True:
     print(soma)
     break
 '''
-
+'''
 import requests
 
 # Função que fará requisição à API
@@ -165,3 +165,14 @@ lista_cep = ["13186642",
 
 y = [consulta_cep(cep) for cep in lista_cep if consulta_cep(cep)[1] == "SP"]
 print(y)
+'''
+
+import requests
+def cotar(data):
+    url = fr"https://olinda.bcb.gov.br/olinda/servico/PTAX/versao/v1/odata/CotacaoDolarDia(dataCotacao=@dataCotacao)?@dataCotacao='{data}'&$top=100&$format=json&$select=cotacaoCompra"
+    res = requests.get(url)
+    res = res.json()
+    return res
+
+cotacaoCompra = cotar("06-29-2007")['value'][0]['cotacaoCompra']
+print(cotacaoCompra)
