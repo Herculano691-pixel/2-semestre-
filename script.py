@@ -166,13 +166,19 @@ lista_cep = ["13186642",
 y = [consulta_cep(cep) for cep in lista_cep if consulta_cep(cep)[1] == "SP"]
 print(y)
 '''
-
+from datetime import datetime, timedelta
 import requests
 def cotar(data):
     url = fr"https://olinda.bcb.gov.br/olinda/servico/PTAX/versao/v1/odata/CotacaoDolarDia(dataCotacao=@dataCotacao)?@dataCotacao='{data}'&$top=100&$format=json&$select=cotacaoCompra"
     res = requests.get(url)
     res = res.json()
-    return res
+    if res['value']:
+        return res ['value'][0]['cotacaoCompra']
+    else:
+        anterior = datetime.strptime(data, "%d-%m-%Y") - timedelta(1)
+        anterior = datetime.strftime(anterior, "%d-%m-%Y")
+        return cotar(anterior)
+        
 
-cotacaoCompra = cotar("06-29-2007")['value'][0]['cotacaoCompra']
+cotacaoCompra = cotar("09-07-2026")
 print(cotacaoCompra)
