@@ -180,7 +180,7 @@ def cotar(data):
         anterior = datetime.strptime(data, "%d-%m-%Y") - timedelta(1)
         anterior = datetime.strftime(anterior, "%d-%m-%Y")
         return cotar(anterior)
-
+'''
 
 import os
 import webbrowser
@@ -243,60 +243,3 @@ webbrowser.open(f"file://{arquivo}")
 
 cotacaoCompra = cotar("09-07-2026")
 print(cotacaoCompra)
-'''
-
-
-import os
-import webbrowser
-import requests
-from folium import Map, Marker
-
-API_URL = "http://api.olhovivo.sptrans.com.br/v2.1/Parada/BuscarParadasPorLinha?codigoLinha=2506"
-TOKEN = os.getenv("SPTRANS_TOKEN", "")
-
-
-def buscar_paradas():
-    headers = {"Accept": "application/json"}
-    if TOKEN:
-        headers["Authorization"] = f"Bearer {TOKEN}"
-
-    try:
-        resposta = requests.get(API_URL, headers=headers, timeout=20)
-        print(f"Status da API: {resposta.status_code}")
-
-        if resposta.status_code != 200:
-            raise RuntimeError(f"Erro na API: {resposta.status_code} - {resposta.text[:200]}")
-
-        dados = resposta.json()
-        paradas = dados.get("vs") or dados.get("paradas") or []
-
-        if not paradas:
-            raise ValueError("A API não retornou paradas para a linha 2506.")
-
-        return paradas
-    except Exception as erro:
-        print(f"Não foi possível consultar a API: {erro}")
-        return [
-            {"np": "UNASP", "py": -22.8773542, "px": -47.2280647},
-            {"np": "Parada 1", "py": -22.8768000, "px": -47.2269000},
-            {"np": "Parada 2", "py": -22.8783000, "px": -47.2292000},
-        ]
-
-
-paradas = buscar_paradas()
-
-m = Map(location=[paradas[0]["py"], paradas[0]["px"]], zoom_start=14)
-for ponto in paradas:
-    nome = ponto.get("np") or ponto.get("nome") or "Parada"
-    lat = ponto.get("py") or ponto.get("latitude")
-    lon = ponto.get("px") or ponto.get("longitude")
-
-    if lat is None or lon is None:
-        continue
-
-    Marker(location=[lat, lon], popup=nome).add_to(m)
-
-arquivo = os.path.join(os.getcwd(), "unasp.html")
-m.save(arquivo)
-print(f"Arquivo gerado: {arquivo}")
-webbrowser.open(f"file://{arquivo}")
