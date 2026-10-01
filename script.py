@@ -181,7 +181,7 @@ def cotar(data):
         anterior = datetime.strftime(anterior, "%d-%m-%Y")
         return cotar(anterior)
 '''
-
+'''
 import os
 import webbrowser
 import requests
@@ -243,3 +243,12 @@ webbrowser.open(f"file://{arquivo}")
 
 cotacaoCompra = cotar("09-07-2026")
 print(cotacaoCompra)
+'''
+
+M = [[1,3], [5,6]]
+N = [[2,8], [9,5]]
+
+for i in range(2):
+    for j in range(2):
+        print(M[i][j] + N[i][j])
+    print()
